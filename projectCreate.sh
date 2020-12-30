@@ -33,14 +33,11 @@ while getopts "l:hgvp:c:e:" flag; do
             exit 0
             ;;
         v) 
-            echo "Version: 1.0.0"
+            echo "v1.0.0"
             exit 0
             ;;
     esac
 done
-
-[[  -z $lang ]] && printf "Enter Language Name : " && read lang
-[[  -z $project_name ]] && printf "Enter project Name : " && read project_name
 
 function gradle_init(){
 
@@ -185,6 +182,7 @@ function c_init(){
     echo '#include <stdio.h>' 
     echo '#include "main.c"'
   ) > $project_name/code.c
+  echo "Created code.c at $PWD/$project_name"
   (
     echo '#include <stdio.h>' 
     echo '#include "header.h"'
@@ -194,40 +192,59 @@ function c_init(){
     echo '    return 0;' 
     echo '}'  
   ) > $project_name/main.c
+  echo "Created main.c at $PWD/$project_name"
   (
     echo '#ifndef HEADER.H' 
     echo '#define HEADER.H' 
     echo '' 
     echo '#endif //HEADER.H' 
   ) > $project_name/header.h
+  echo "Created header.h at $PWD/$project_name"
   (
     echo $project_name | tr '[:upper:]' '[:lower:]' 
     echo '*.pdf' 
     echo '*.pptx' 
     echo '*.vscode' 
   ) > $project_name/.gitignore
+  echo "Created .gitignore at $PWD/$project_name"
   [ "$git_init" == "true" ] && git init $project_name
-
+  echo "Project created successfully at $PWD"
 }
 
+[[  -z $project_name ]] && printf "Enter project Name : " && read project_name
 
-case $lang in
-  #react )
-  #  react_init
-  #  ;;
-  #react-native )
-  #  react_native_init
-  #  ;;
-  c )
-    c_init
-    ;;
-  python )
-    py_init
-    ;;
-  cpp )
-    cpp_init
-    ;;
-  java )
-    gradle_init
-    ;;
-esac
+echo "Please select a language:"
+select lang in c cpp java python
+do 
+    case $lang in
+      #react )
+      #  react_init 
+      #  exit 0
+      #  ;;
+      #react-native )
+      #  react_native_init 
+      #  exit 0
+      #  ;;
+      c )
+        c_init 
+        exit 0
+        ;;
+      python )
+        py_init 
+        exit 0
+        ;;
+      cpp )
+        cpp_init 
+        exit 0
+        ;;
+      java )
+        gradle_init 
+        exit 0
+        ;;
+      * )
+        echo "Invalid language name. Please select a number between 1 and 4."
+    esac
+done
+
+
+
