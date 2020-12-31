@@ -216,7 +216,7 @@ function c_init(){
   [ "$git_init" == "true" ] && echo "Created .gitignore at $PWD/$project_name"
   [ "$git_init" == "true" ] && git init $project_name
   echo "Done."
-  echo -n "Project created " && echo -n "${green}${underline}${bold}SUCCESSFULLY${normal}" && echo " at $PWD"
+  echo -n "Project created " && echo -n "${green}${underline}${bold}SUCCESSFULLY${normal}" && echo " in $PWD"
 
 }
 
