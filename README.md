@@ -6,6 +6,8 @@ THIS PROJECT IS CURRENTLY IN BETA HENCE THERE IS NO RELEASE AVAILABLE YET.
 * [General info](#general-info)
 * [Technologies](#technologies)
 * [Setup](#setup)
+* [Usage](#usage)
+* [Todos](#todos)
 
 ## General info
 This repo contains the custom scripts i use on a daily basis to automate common tasks such as creating a new project and downloading all the correct dependencies.
@@ -37,6 +39,13 @@ And add this line to your .bash_aliases (or any shell aliases file):
 ```
 $ alias createProject='projectCreate.sh' 
 ```
+
+## Usage:
+Simply open a command line tool or terminal (Windows users - search for "cmd" and press Enter), and type "createProject"
+Use with flag -h (createProject -h) to see help and usage guide.
+The program will prompt for a project name - enter your desired project name.
+The program will show a menu of different programming languages and ask you to choose one using the numbers listed next to each language name.
+The script will then run, creating the project directory in the current directory and create all of the needed files and dependencies inside of it.
 
 ## Todos:
 Convert projectCreate.sh to powershell script
