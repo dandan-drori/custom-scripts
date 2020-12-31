@@ -48,10 +48,10 @@ The program will show a menu of different programming languages and ask you to c
 The script will then run, creating the project directory in the current directory and create all of the needed files and dependencies inside of it.
 
 ## Todos:
-Convert projectCreate.sh to powershell script
 1) ~~Add C as a language option in projectCreate.sh~~
 2) Add React as a language option in projectCreate.sh
 3) Add ReactNative as a language option in projectCreate.sh
+4) Convert projectCreate.sh to powershell script
 
 ### If you have any suggestions, please let us know!
 #### Happy coding ;)
