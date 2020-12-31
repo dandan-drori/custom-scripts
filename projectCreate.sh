@@ -1,5 +1,11 @@
 #!/bin/bash
 
+normal=`echo -en "\e[0m"`
+green=`echo -en "\e[32m"` 
+red=`echo -en "\e[31m"`
+underline=`echo -en "\e[4m"`
+bold=`echo -en "\e[1m"`
+
 function help(){
   echo "usage: projectCreate -l lang "
   echo "optional : -g intialise a git repo inside project folder"
@@ -175,14 +181,15 @@ function py_init(){
 }
 
 function c_init(){
-
+  echo "Creating project..."
   mkdir $project_name || exit
   _project_name=$(echo $project_name | sed -e 's/-/_/g')
+  echo "Created ${project_name} directory in ${PWD}"
   (
     echo '#include <stdio.h>' 
     echo '#include "main.c"'
   ) > $project_name/code.c
-  echo "Created code.c at $PWD/$project_name"
+  echo "Created code.c in $PWD/$project_name"
   (
     echo '#include <stdio.h>' 
     echo '#include "header.h"'
@@ -192,23 +199,25 @@ function c_init(){
     echo '    return 0;' 
     echo '}'  
   ) > $project_name/main.c
-  echo "Created main.c at $PWD/$project_name"
+  echo "Created main.c in $PWD/$project_name"
   (
     echo '#ifndef HEADER.H' 
     echo '#define HEADER.H' 
     echo '' 
     echo '#endif //HEADER.H' 
   ) > $project_name/header.h
-  echo "Created header.h at $PWD/$project_name"
-  (
+  echo "Created header.h in $PWD/$project_name"
+  [ "$git_init" == "true"  ] && (
     echo $project_name | tr '[:upper:]' '[:lower:]' 
     echo '*.pdf' 
     echo '*.pptx' 
     echo '*.vscode' 
   ) > $project_name/.gitignore
-  echo "Created .gitignore at $PWD/$project_name"
+  [ "$git_init" == "true" ] && echo "Created .gitignore at $PWD/$project_name"
   [ "$git_init" == "true" ] && git init $project_name
-  echo "Project created successfully at $PWD"
+  echo "Done."
+  echo -n "Project created " && echo -n "${green}${underline}${bold}SUCCESSFULLY${normal}" && echo " at $PWD"
+
 }
 
 [[  -z $project_name ]] && printf "Enter project Name : " && read project_name
@@ -242,7 +251,7 @@ do
         exit 0
         ;;
       * )
-        echo "Invalid language name. Please select a number between 1 and 4."
+        echo "${red}${underline}${bold}ERROR:${normal} invalid language name; Please select a number between 1 and 4:"
     esac
 done
 
