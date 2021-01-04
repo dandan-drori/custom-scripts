@@ -14,6 +14,21 @@ switch(3){
     4 {"Four"}
     3 {"Three Again"}
 } # switch statement
+
+function Show-Menu
+{
+     param (
+           [string]$Title = 'My Menu'
+     )
+     cls
+     Write-Host "================ $Title ================"
+    
+     Write-Host "1: Press '1' for this option."
+     Write-Host "2: Press '2' for this option."
+     Write-Host "3: Press '3' for this option."
+     Write-Host "q: Press 'q' to quit."
+} # function to prompt the menu
+
 Show-Menu –Title 'My Menu'
 $selection = Read-Host "Please make a selection"
 switch ($selection){
