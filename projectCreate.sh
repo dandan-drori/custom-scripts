@@ -221,9 +221,18 @@ function c_init(){
 }
 
 function react_init(){
+  if ! command -v npm &> /dev/null
+  then
+    echo "npm could not be found. Please install it by visiting this url: https://nodejs.org/en/"
+    exit
+  fi
+  if ! command -v create-react-app &> /dev/null
+  then
+    echo "create-react-app could not be found, installing using npm..."
+    npm install -g create-react-app
+    exit
+  fi
   echo "Creating project..."
-  # check if npm is installed globally, if not - install it
-  # check if create-react-app is installed globally, if not - install it using npm install -g create-react-app
   create-react-app "$project_name"
   rm "$project_name/src/App.css"
   rm "$project_name/src/index.css"
@@ -257,6 +266,7 @@ function react_init(){
     echo "  document.getElementById('root')"
     echo ");"
   ) > $project_name/src/index.js
+  mkdir $project_name/src/components
   touch $project_name/src/components/App.js
   (
     echo "import React from 'react';"
@@ -278,17 +288,21 @@ function react_init(){
   ) > $project_name/src/components/App.js
   mkdir $project_name/src/redux
   mkdir $project_name/src/redux/actions
+  touch $project_name/src/redux/actions/actions.js
   mkdir $project_name/src/redux/reducers
   # echo () > $project_name/src/redux/reducers
-  # mkdir $project_name/src/styles
-  # mkdir $project_name/src/styles/GlobalStyles.js
+  mkdir $project_name/src/styles
   # echo () > $project_name/src/styles/GlobalStyles.js
-  mkdir $project_name/src/components
-
- # npm install redux
- # npm install react-redux
- # npm install styled-components
- # npm install react-router-dom
+  
+  echo "Installing dependencies... Please wait..."
+  echo "Installing redux..."
+  npm install redux
+  echo "Installing react-redux..."
+  npm install react-redux
+  echo "Installing styled-components..."
+  npm install styled-components
+  echo "Installing react-router-dom..."
+  npm install react-router-dom
 }
 
 [[  -z $project_name ]] && printf "Enter project Name : " && read project_name
