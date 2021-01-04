@@ -270,11 +270,11 @@ function react_init(){
   (
     echo "import React from 'react';"
     echo "import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';"
-    echo "GlobalStyles.js from '../styles';"
+    echo "import GlobalStyle from '../style';"
     echo ""
     echo "const App = () => {"
     echo "  <Router>"
-    echo "    <GlobalStyles />"
+    echo "    <GlobalStyle />"
     echo "      <Switch>"
     echo "        <Route path='/' exact>"
     echo "          <Home />"
@@ -308,15 +308,23 @@ function react_init(){
     echo ""
     echo "export default reducer"
   ) > $project_name/src/redux/reducers/reducers.js
-  mkdir $project_name/src/styles
+  mkdir $project_name/src/style
   (
     echo "import { createGlobalStyle } from 'styled-components';"
     echo ""
-    echo "const GlobalStyles = createGlobalStylebacktick"
+    echo "const GlobalStyle = createGlobalStyle\`"
     echo "* {"
     echo "  margin: 0;"
-    echo "backtick"
-  ) > $project_name/src/styles/GlobalStyles.js
+    echo "  padding: 0;"
+    echo "  box-sizing: border-box;"
+    echo "}"
+    echo "body {"
+    echo "font-family: sans-serif;"
+    echo "}"
+    echo "\`"
+    echo ""
+    echo "export default GlobalStyles"
+  ) > $project_name/src/style/index.js
   
   echo "Installing dependencies... Please wait..."
   echo "Installing redux..."
@@ -326,7 +334,11 @@ function react_init(){
   echo "Installing styled-components..."
   npm install --prefix $PWD/$project_name styled-components
   echo "Installing react-router-dom..."
-  npm install --prefix $PWD/$project_name react-router-dom
+  npm install --prefix $PWD/$project_name react-router-dom 
+  echo "Done."
+  echo -n "Project created " && echo -n "${green}${underline}${bold}SUCCESSFULLY${normal}" && echo " in $PWD"
+  echo "Use cd $project_name to switch to project's directory."
+  echo "Use npm start to launch the react application in the browser at localhost:3000."
 }
 
 [[  -z $project_name ]] && printf "Enter project Name : " && read project_name
