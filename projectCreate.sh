@@ -3,6 +3,7 @@
 normal=`echo -en "\e[0m"`
 green=`echo -en "\e[32m"` 
 red=`echo -en "\e[31m"`
+blue=`echo -en "\e[46m"`
 underline=`echo -en "\e[4m"`
 bold=`echo -en "\e[1m"`
 
@@ -350,8 +351,9 @@ function react_init(){
   npm install --prefix $PWD/$project_name react-router-dom 
   echo "Done."
   echo -n "Project created " && echo -n "${green}${underline}${bold}SUCCESSFULLY${normal}" && echo " in $PWD"
-  echo "Use cd $project_name to switch to project's directory."
-  echo "Use npm start to launch the react application in the browser at localhost:3000."
+  echo "We suggest that you start with:"
+  echo "  ${blue}cd${normal} $project_name"
+  echo "  ${blue}npm start${normal}"
 }
 
 [[  -z $project_name ]] && printf "Enter project Name : " && read project_name
