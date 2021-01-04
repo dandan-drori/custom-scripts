@@ -222,7 +222,9 @@ function c_init(){
 
 function react_init(){
   echo "Creating project..."
-  npx "create-react-app $project_name"
+  # check if npm is installed globally, if not - install it
+  # check if create-react-app is installed globally, if not - install it using npm install -g create-react-app
+  create-react-app "$project_name"
   rm "$project_name/src/App.css"
   rm "$project_name/src/index.css"
   rm "$project_name/src/App.test.js"
