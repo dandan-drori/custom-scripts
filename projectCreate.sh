@@ -7,11 +7,11 @@ underline=`echo -en "\e[4m"`
 bold=`echo -en "\e[1m"`
 
 function help(){
-  echo "usage: projectCreate -l lang "
-  echo "optional : -g intialise a git repo inside project folder"
-  echo "         : -h show this help message"
-  echo "         : -p projectName -c className -e executableName"
-  echo "         : -v show current version"
+  echo "Usage: projectCreate"
+  echo "Optional : -g Intialise a git repo inside project folder"
+  echo "         : -h Show this help message"
+  echo "         : -p ProjectName -c ClassName -e ExecutableName"
+  echo "         : -v Show current version"
 }
 
 
@@ -39,7 +39,7 @@ while getopts "l:hgvp:c:e:" flag; do
             exit 0
             ;;
         v) 
-            echo "v1.0.0"
+            echo "v0.0.2 (beta)"
             exit 0
             ;;
     esac
@@ -220,16 +220,85 @@ function c_init(){
 
 }
 
+function react_init(){
+  echo "Creating project..."
+  npx "create-react-app $project_name"
+  rm "$project_name/src/App.css"
+  rm "$project_name/src/index.css"
+  rm "$project_name/src/App.test.js"
+  rm "$project_name/src/logo.svg"
+  rm "$project_name/src/reportWebVitals.js"
+  rm "$project_name/src/setupTests.js"
+  rm "$project_name/src/index.js"
+  rm "$project_name/src/App.js"
+  rm "$project_name/public/favicon.ico"
+  rm "$project_name/public/logo192.png"
+  rm "$project_name/public/logo512.png"
+  rm "$project_name/public/manifest.json"
+  touch $project_name/src/index.js
+  (
+    echo "import React from 'react';"
+    echo "import ReactDOM from 'react-dom';"
+    echo "import App from './components/App';"
+    echo "import { createStore } from 'redux'"
+    echo "import { Provider } from 'react-redux'"
+    echo "import reducer from './redux/reducers'"
+    echo ""
+    echo "const store = createStore(reducer)"
+    echo ""
+    echo "ReactDOM.render("
+    echo "  <React.StrictMde>"
+    echo "    <Provider store={store}>"
+    echo "      <App />"
+    echo "    </Provider>"
+    echo "  </React.StrictMde>,"
+    echo "  document.getElementById('root')"
+    echo ");"
+  ) > $project_name/src/index.js
+  touch $project_name/src/components/App.js
+  (
+    echo "import React from 'react';"
+    echo "import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'"
+    echo "GlobalStyles from '../styles'"
+    echo ""
+    echo "const App = () => {"
+    echo "  <Router>"
+    echo "    <GlobalStyles />"
+    echo "      <Switch>"
+    echo "        <Route path='/' exact>"
+    echo "          <Home />"
+    echo "        </Route>"
+    echo "      </Switch>"
+    echo "  </Router>"
+    echo "}"
+    echo ""
+    echo "export default App"
+  ) > $project_name/src/components/App.js
+  mkdir $project_name/src/redux
+  mkdir $project_name/src/redux/actions
+  mkdir $project_name/src/redux/reducers
+  # echo () > $project_name/src/redux/reducers
+  # mkdir $project_name/src/styles
+  # mkdir $project_name/src/styles/GlobalStyles.js
+  # echo () > $project_name/src/styles/GlobalStyles.js
+  mkdir $project_name/src/components
+
+ # npm install redux
+ # npm install react-redux
+ # npm install styled-components
+ # npm install react-router-dom
+}
+
 [[  -z $project_name ]] && printf "Enter project Name : " && read project_name
 
 echo "Please select a language:"
-select lang in c cpp java python
+select lang in c cpp java python react
 do 
     case $lang in
-      #react )
-      #  react_init 
-      #  exit 0
-      #  ;;
+      react )
+        react_init 
+        exit 0
+        ;;
       #react-native )
       #  react_native_init 
       #  exit 0
