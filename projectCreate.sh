@@ -296,13 +296,13 @@ function react_init(){
   
   echo "Installing dependencies... Please wait..."
   echo "Installing redux..."
-  npm install redux
+  npm install --prefix $PWD/$project_name  redux
   echo "Installing react-redux..."
-  npm install react-redux
+  npm install --prefix $PWD/$project_name react-redux
   echo "Installing styled-components..."
-  npm install styled-components
+  npm install --prefix $PWD/$project_name styled-components
   echo "Installing react-router-dom..."
-  npm install react-router-dom
+  npm install --prefix $PWD/$project_name react-router-dom
 }
 
 [[  -z $project_name ]] && printf "Enter project Name : " && read project_name
