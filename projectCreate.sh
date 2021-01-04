@@ -230,7 +230,6 @@ function react_init(){
   then
     echo "create-react-app could not be found, installing using npm..."
     npm install -g create-react-app
-    exit
   fi
   echo "Creating project..."
   create-react-app "$project_name"
@@ -251,9 +250,9 @@ function react_init(){
     echo "import React from 'react';"
     echo "import ReactDOM from 'react-dom';"
     echo "import App from './components/App';"
-    echo "import { createStore } from 'redux'"
-    echo "import { Provider } from 'react-redux'"
-    echo "import reducer from './redux/reducers'"
+    echo "import { createStore } from 'redux';"
+    echo "import { Provider } from 'react-redux';"
+    echo "import reducer from './redux/reducers';"
     echo ""
     echo "const store = createStore(reducer)"
     echo ""
@@ -270,8 +269,8 @@ function react_init(){
   touch $project_name/src/components/App.js
   (
     echo "import React from 'react';"
-    echo "import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'"
-    echo "GlobalStyles from '../styles'"
+    echo "import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';"
+    echo "GlobalStyles.js from '../styles';"
     echo ""
     echo "const App = () => {"
     echo "  <Router>"
@@ -288,15 +287,40 @@ function react_init(){
   ) > $project_name/src/components/App.js
   mkdir $project_name/src/redux
   mkdir $project_name/src/redux/actions
-  touch $project_name/src/redux/actions/actions.js
+  (
+    echo "export const setTest = test => {"
+    echo "  return { type: 'EXAMPLE_ONE', payload: test }"
+    echo "}"
+  ) > $project_name/src/redux/actions/actions.js
   mkdir $project_name/src/redux/reducers
-  # echo () > $project_name/src/redux/reducers
+  (
+    echo "import { combineReducers } from 'redux';"
+    echo ""
+    echo "const example = (state = { test: '' }, { type, payload }) => {"
+    echo "  switch (type) {"
+    echo "    case 'EXAMPLE_ONE'"
+    echo "      return { ...state, test: payload }"
+    echo "    default:"
+    echo "      return state"
+    echo "  }"
+    echo "}"
+    echo "const reducer = combineReducers({ example })"
+    echo ""
+    echo "export default reducer"
+  ) > $project_name/src/redux/reducers/reducers.js
   mkdir $project_name/src/styles
-  # echo () > $project_name/src/styles/GlobalStyles.js
+  (
+    echo "import { createGlobalStyle } from 'styled-components';"
+    echo ""
+    echo "const GlobalStyles = createGlobalStylebacktick"
+    echo "* {"
+    echo "  margin: 0;"
+    echo "backtick"
+  ) > $project_name/src/styles/GlobalStyles.js
   
   echo "Installing dependencies... Please wait..."
   echo "Installing redux..."
-  npm install --prefix $PWD/$project_name  redux
+  npm install --prefix $PWD/$project_name redux
   echo "Installing react-redux..."
   npm install --prefix $PWD/$project_name react-redux
   echo "Installing styled-components..."

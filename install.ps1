@@ -43,7 +43,9 @@ switch ($selection){
     }
 } # full menu program
 
-
+write-output
+write-warning
+write-error
 
 
 
