@@ -1,4 +1,4 @@
-# Configuration Files
+# Custom Scripts
 Custom scripts created mainly for automation of common tasks.\
 THIS PROJECT IS CURRENTLY IN BETA HENCE THERE IS NO RELEASE AVAILABLE YET.
 
@@ -49,8 +49,8 @@ The script will then run, creating the project directory in the current director
 
 ## Todos:
 1) ~~Add C as a language option in projectCreate.sh.~~
-2) Add usage instructions to enable PowerShell scripts to be run using administrator and Set-ExecutionPolicy RemoteSigned.
-3) Add React as a language option in projectCreate.sh
+2) ~~Add React as a language option in projectCreate.sh~~
+3) Add usage instructions to enable PowerShell scripts to be run using administrator and Set-ExecutionPolicy RemoteSigned.
 4) Add ReactNative as a language option in projectCreate.sh
 5) Convert projectCreate.sh to powershell script
 6) Create an install script to create a directory, save the powershell script in it and add its path to PATH. And create an alias for the script. 
