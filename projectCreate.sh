@@ -3,7 +3,7 @@
 normal=`echo -en "\e[0m"`
 green=`echo -en "\e[32m"` 
 red=`echo -en "\e[31m"`
-blue=`echo -en "\e[46m"`
+blue=`echo -en "\e[36m"`
 underline=`echo -en "\e[4m"`
 bold=`echo -en "\e[1m"`
 
@@ -224,8 +224,8 @@ function c_init(){
 function react_init(){
   if ! command -v npm &> /dev/null
   then
-    echo "npm could not be found. Please install it by visiting this url: https://nodejs.org/en/"
-    exit
+    echo "npm could not be found. Please install it by visiting this url: https://npmjs.org"
+    curl "https://npmjs.org/install.sh" | sh
   fi
   if ! command -v create-react-app &> /dev/null
   then
@@ -330,12 +330,57 @@ function react_init(){
   ) > $project_name/src/style/index.js
   (
     echo "import React from 'react'"
+    echo "import styled from 'styled-components'"
     echo ""
     echo "const Home = () => {"
     echo "  return ("
-    echo "    <div>Home</div>"
+    echo "    <Container>"
+    echo "      <Header>Welcome!</Header>"
+    echo "      <SubHeader>This template will help you get started.</SubHeader>"
+    echo "      <List>"
+    echo "        <ListItem>"
+    echo "          <Link href='#'>React Docs</Link>"
+    echo "        </ListItem>"
+    echo "      </List>"
+    echo "    </Container>"
     echo "  )"
     echo "}"
+    echo ""
+    echo 'const Container = styled.div`'
+    echo "  width: 300vw;"
+    echo "  height: 300vh;"
+    echo "  background-color: #101032;"
+    echo "  text-align: center;"
+    echo "  padding: 4rem;"
+    echo "  padding-top: 8rem;"
+    echo '`'
+    echo ""
+    echo 'const Header = styled.p`'
+    echo "  font-size: 10rem;"
+    echo "  color: #0088ee;"
+    echo "  margin-bottom: 6rem;"
+    echo '`'
+    echo ""
+    echo 'const SubHeader = styled.p`'
+    echo "  font-size: 6rem;"
+    echo "  color: #fefefe;"
+    echo "  margin-bottom: 10rem;"
+    echo '`'
+    echo ""
+    echo 'const List = styled.ul`'
+    echo "  display: flex;"
+    echo "  justify-content: center;"
+    echo "  align-items: center;"
+    echo '`'
+    echo ""
+    echo 'const ListItem = styled.li`'
+    echo "  list-style:none;"
+    echo '`'
+    echo ""
+    echo 'const Link = styled.a`'
+    echo "  font-size: 3rem;"
+    echo "  color: #0088ee;"
+    echo '`'
     echo ""
     echo "export default Home"
   ) > $project_name/src/components/Home.js
@@ -387,7 +432,7 @@ do
         exit 0
         ;;
       * )
-        echo "${red}${underline}${bold}ERROR:${normal} invalid language name; Please select a number between 1 and 4:"
+        echo "${red}${underline}${bold}ERROR:${normal} invalid language name; Please select a number between 1 and 5:"
     esac
 done
 
