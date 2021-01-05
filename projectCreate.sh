@@ -224,7 +224,8 @@ function c_init(){
 function react_init(){
   if ! command -v npm &> /dev/null
   then
-    echo "npm could not be found. Please install it by visiting this url: https://npmjs.org"
+    #echo "npm could not be found. Please install it by visiting this url: https://npmjs.org"
+    echo "Couldn't find npm. installing using cURL command...'"
     curl "https://npmjs.org/install.sh" | sh
   fi
   if ! command -v create-react-app &> /dev/null
