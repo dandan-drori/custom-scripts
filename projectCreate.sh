@@ -343,7 +343,7 @@ function react_init(){
     echo "        <SubHeader>This template will help you get started.</SubHeader>"
     echo "        <List>"
     echo "          <ListItem>"
-    echo "           <Link href='#'>React Docs</Link>"
+    echo "           <Link href='https://reactjs.org'>React Docs</Link>"
     echo "          </ListItem>"
     echo "        </List>"
     echo "      </Container>"
