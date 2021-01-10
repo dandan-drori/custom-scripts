@@ -185,13 +185,7 @@ function c_init(){
   start=`date +%s`
   echo "Creating project..."
   mkdir $project_name || exit
-  _project_name=$(echo $project_name | sed -e 's/-/_/g')
   echo "Created ${project_name} directory in ${PWD}"
-  (
-    echo '#include <stdio.h>' 
-    echo '#include "main.c"'
-  ) > $project_name/code.c
-  echo "Created code.c in $PWD/$project_name"
   (
     echo '#include <stdio.h>' 
     echo '#include "header.h"'
@@ -201,14 +195,28 @@ function c_init(){
     echo '    return 0;' 
     echo '}'  
   ) > $project_name/main.c
-  echo "Created main.c in $PWD/$project_name"
+  echo "Created main.c at $PWD/$project_name/main.c"
+  [[  -z $code_file_name ]] && printf "Enter Code File Name (without .c): " && read code_file_name
   (
-    echo '#ifndef HEADER.H' 
-    echo '#define HEADER.H' 
+    echo '#include <stdio.h>' 
+    echo '#include "main.c"'
+  ) > $project_name/$code_file_name.c
+  echo "Created $code_file_name.c at $PWD/$project_name/$code_file_name"
+  [[  -z $header_file_name ]] && printf "Enter Header File Name (without .h): " && read header_file_name
+  (
+    echo -n '#ifndef'
+    echo -n " $header_file_name" | tr '[:lower:]' '[:upper:]'   
+    echo "_h" | tr '[:lower:]' '[:upper:]'  
+    echo -n '#define'
+    echo -n " $header_file_name" | tr '[:lower:]' '[:upper:]'  
+    echo "_h" | tr '[:lower:]' '[:upper:]' 
     echo '' 
-    echo '#endif //HEADER.H' 
-  ) > $project_name/header.h
-  echo "Created header.h in $PWD/$project_name"
+    echo ''
+    echo '' 
+    echo -n '#endif'
+    echo " //$header_file_name.h" | tr '[:lower:]' '[:upper:]'  
+  ) > $project_name/$header_file_name.h
+  echo "Created $header_file_name.h at $PWD/$project_name/$header_file_name"
   [ "$git_init" == "true"  ] && (
     echo $project_name | tr '[:upper:]' '[:lower:]' 
     echo '*.pdf' 
@@ -239,7 +247,7 @@ function react_init(){
   fi
   echo "Creating project..."
   create-react-app "$project_name"
-  rm "$project_name/src/App.css"
+  rm "$project_name $project_name/src/App.css"
   rm "$project_name/src/index.css"
   rm "$project_name/src/App.test.js"
   rm "$project_name/src/logo.svg"
@@ -348,7 +356,7 @@ function react_init(){
     echo "        <SubHeader>This template will help you get started.</SubHeader>"
     echo "        <List>"
     echo "          <ListItem>"
-    echo "           <Link href='#'>React Docs</Link>"
+    echo "           <Link href='https://reactjs.org'>React Docs</Link>"
     echo "          </ListItem>"
     echo "        </List>"
     echo "      </Container>"
@@ -432,7 +440,7 @@ function react_init(){
   echo "  ${blue}npm start${normal}"
 }
 
-[[  -z $project_name ]] && printf "Enter project Name : " && read project_name
+[[  -z $project_name ]] && printf "Enter project Name: " && read project_name
 
 echo "Please select a language:"
 select lang in c cpp java python react
