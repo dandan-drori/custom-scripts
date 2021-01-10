@@ -182,6 +182,7 @@ function py_init(){
 }
 
 function c_init(){
+  start=`date +%s`
   echo "Creating project..."
   mkdir $project_name || exit
   _project_name=$(echo $project_name | sed -e 's/-/_/g')
@@ -218,10 +219,13 @@ function c_init(){
   [ "$git_init" == "true" ] && git init $project_name
   echo "Done."
   echo -n "Project created " && echo -n "${green}${underline}${bold}SUCCESSFULLY${normal}" && echo " in $PWD"
+  end=`date +%s`
+  echo "Time elapsed - $((end-start)) seconds"
 
 }
 
 function react_init(){
+  start=`date +%s`
   if ! command -v npm &> /dev/null
   then
     #echo "npm could not be found. Please install it by visiting this url: https://npmjs.org"
@@ -421,6 +425,8 @@ function react_init(){
   npm install --prefix $PWD/$project_name react-router-dom 
   echo "Done."
   echo -n "Project created " && echo -n "${green}${underline}${bold}SUCCESSFULLY${normal}" && echo " in $PWD"
+  end=`date +%s`
+  echo "Time elapsed - $((end-start)) seconds"
   echo "We suggest that you start with:"
   echo "  ${blue}cd${normal} $project_name"
   echo "  ${blue}npm start${normal}"
