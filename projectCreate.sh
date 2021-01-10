@@ -234,12 +234,14 @@ function c_init(){
 
 function react_init(){
   start=`date +%s`
+  echo "Looking for npm..."
   if ! command -v npm &> /dev/null
   then
     #echo "npm could not be found. Please install it by visiting this url: https://npmjs.org"
-    echo "Couldn't find npm. installing using cURL command...'"
+    echo "Couldn't find npm. installing...'"
     curl "https://npmjs.org/install.sh" | sh
   fi
+  echo "Looking for creare-react-app"
   if ! command -v create-react-app &> /dev/null
   then
     echo "create-react-app could not be found, installing using npm..."
@@ -247,7 +249,8 @@ function react_init(){
   fi
   echo "Creating project..."
   create-react-app "$project_name"
-  rm "$project_name $project_name/src/App.css"
+  echo "Removing unneccessary files..."
+  rm "$project_name/src/App.css"
   rm "$project_name/src/index.css"
   rm "$project_name/src/App.test.js"
   rm "$project_name/src/logo.svg"
@@ -259,6 +262,7 @@ function react_init(){
   rm "$project_name/public/logo192.png"
   rm "$project_name/public/logo512.png"
   rm "$project_name/public/manifest.json"
+  echo "Creating neccessary files..."
   (
     echo "import React from 'react';"
     echo "import ReactDOM from 'react-dom';"
@@ -436,8 +440,10 @@ function react_init(){
   end=`date +%s`
   echo "Time elapsed - $((end-start)) seconds"
   echo "We suggest that you start with:"
+  echo ""
   echo "  ${blue}cd${normal} $project_name"
   echo "  ${blue}npm start${normal}"
+  echo ""
 }
 
 [[  -z $project_name ]] && printf "Enter project Name: " && read project_name
