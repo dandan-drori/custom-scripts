@@ -55,7 +55,7 @@ switch ($selection){
         'You chose react' 
     } 'q' {
         return
-    } * {
+    } default {
         'Error: Please choose a number betweem 1-5' 
     }
 } 

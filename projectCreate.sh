@@ -185,17 +185,7 @@ function c_init(){
   start=`date +%s`
   echo "Creating project..."
   mkdir $project_name || exit
-  echo "Created ${project_name} directory in ${PWD}"
-  (
-    echo '#include <stdio.h>' 
-    echo '#include "header.h"'
-    echo '' 
-    echo 'int main () {' 
-    echo '    ' 
-    echo '    return 0;' 
-    echo '}'  
-  ) > $project_name/main.c
-  echo "Created main.c at $PWD/$project_name/main.c"
+  echo "Created $project_name directory at $PWD/$project_name"
   [[  -z $code_file_name ]] && printf "Enter Code File Name (without .c): " && read code_file_name
   (
     echo '#include <stdio.h>' 
@@ -217,6 +207,16 @@ function c_init(){
     echo " //$header_file_name.h" | tr '[:lower:]' '[:upper:]'  
   ) > $project_name/$header_file_name.h
   echo "Created $header_file_name.h at $PWD/$project_name/$header_file_name"
+  (
+    echo '#include <stdio.h>' 
+    echo "#include \"$header_file_name.h\""
+    echo '' 
+    echo 'int main () {' 
+    echo '    ' 
+    echo '    return 0;' 
+    echo '}'  
+  ) > $project_name/main.c
+  echo "Created main.c at $PWD/$project_name/main.c"
   [ "$git_init" == "true"  ] && (
     echo $project_name | tr '[:upper:]' '[:lower:]' 
     echo '*.pdf' 
