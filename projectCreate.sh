@@ -164,19 +164,55 @@ function cpp_init(){
 function py_init(){
 
   mkdir $project_name || exit
-  _project_name=$(echo $project_name | sed -e 's/-/_/g')
-  mkdir -p $project_name/docs
-  mkdir -p $project_name/$_project_name
-  mkdir -p $project_name/tests
-  touch $project_name/LICENSE
-  touch $project_name/README.md
-  touch $project_name/TODO.md
-  touch $project_name/setup.py
-  touch $project_name/.gitignore
-  touch $project_name/install.sh
-  touch $project_name/$_project_name/__init__.py
-  touch $project_name/$_project_name/utils.py
-  touch $project_name/$_project_name/__main__.py
+  # _project_name=$(echo $project_name | sed -e 's/-/_/g')
+  # mkdir -p $project_name/docs
+  # mkdir -p $project_name/$_project_name
+  # mkdir -p $project_name/tests
+  # touch $project_name/LICENSE
+  # touch $project_name/README.md
+  # touch $project_name/TODO.md
+  # touch $project_name/setup.py
+  # touch $project_name/install.sh
+  # touch $project_name/$_project_name/__init__.py
+  # touch $project_name/$_project_name/utils.py
+  # touch $project_name/$_project_name/__main__.py
+  [[  -z $main_py_file_name ]] && printf "Enter Main Python File Name (without .py): " && read main_py_file_name
+  (
+    echo 'import sys'
+    echo ''
+    echo '# global constant variables'
+    echo '' 
+    echo '' 
+    echo '# helper functions' 
+    echo ''
+    echo ''
+    echo '# main functions'
+    echo ''
+    echo ''
+    echo 'def main():'
+    echo '  pass'
+    echo '' 
+    echo 'if __name__ == "__main__":'
+    echo '  main()'
+    echo '' 
+  ) > $project_name/$main_py_file_name.py
+  (
+    echo '{' 
+    echo '  "configurations": {'
+    echo '    "Python": {'
+    echo '      "adapter": "debugpy",'
+    echo '      "configuration": {'  
+    echo '        "request": "launch",'
+    echo "        \"program\": \"\${workspaceRoot}/${main_py_file_name}.py\","
+    echo '        "cwd": "${workspaceRoot}",'
+    echo '        "externalConsole": true,' 
+    echo '        "stopOnEntry": true' 
+    echo '      }'  
+    echo '    }' 
+    echo '  }' 
+    echo '}' 
+  ) > $project_name/.vimspector.json
+  [ "$git_init" == "true" ] && touch $project_name/.gitignore
   [ "$git_init" == "true" ] && git init $project_name
 
 }
