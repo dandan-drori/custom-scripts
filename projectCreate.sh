@@ -223,12 +223,12 @@ function c_init(){
   mkdir $project_name || exit
   echo "Created $project_name directory at $PWD/$project_name"
   [[  -z $code_file_name ]] && printf "Enter Code File Name (without .c): " && read code_file_name
+  [[  -z $header_file_name ]] && printf "Enter Header File Name (without .h): " && read header_file_name
   (
     echo '#include <stdio.h>' 
-    echo '#include "main.c"'
+    echo "#include \"$header_file_name.h\""
   ) > $project_name/$code_file_name.c
   echo "Created $code_file_name.c at $PWD/$project_name/$code_file_name"
-  [[  -z $header_file_name ]] && printf "Enter Header File Name (without .h): " && read header_file_name
   (
     echo -n '#ifndef'
     echo -n " $header_file_name" | tr '[:lower:]' '[:upper:]'   
