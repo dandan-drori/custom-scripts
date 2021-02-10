@@ -50,7 +50,7 @@ The script will then run, creating the project directory in the current director
 ## Todos:
 1) ~~Add C as a language option in projectCreate.sh.~~
 2) ~~Add React as a language option in projectCreate.sh~~
-3) ~~Add option to name files that will be created by the script, and use the saved file names inside the files (includes).
+3) ~~Add option to name files that will be created by the script, and use the saved file names inside the files (includes).~~
 4) Add ReactNative as a language option in projectCreate.sh
 5) Add usage instructions to enable PowerShell scripts to be run using administrator and Set-ExecutionPolicy RemoteSigned.
 6) Convert projectCreate.sh to powershell script
