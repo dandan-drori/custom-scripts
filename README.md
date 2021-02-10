@@ -3,13 +3,14 @@ Custom scripts created mainly for automation of common tasks.\
 THIS PROJECT IS CURRENTLY IN BETA HENCE THERE IS NO RELEASE AVAILABLE YET.
 
 ## Table of contents
-* [General info](#general-info)
+* [General Info](#general-info)
 * [Technologies](#technologies)
+* [Project Overview](#project-overview)
 * [Setup](#setup)
 * [Usage](#usage)
 * [Todos](#todos)
 
-## General info
+## General Info
 This repo contains the custom scripts i use on a daily basis to automate common tasks such as creating a new project and downloading all the correct dependencies.\
 Please note that the shell scripts in this repo are currently only available for bash since they are writting in bash script.\
 We are currently working on converting the scripts into powershell script to make them available for Windows users as well.\
@@ -21,6 +22,15 @@ The scripts in this project are created with:
 * Vim - Vi IMproved 8.1 (2018 May 18, compiled Apr 15 2020 06:40:31)
 * Vundle - Vim plugin manager - Version 0.10.2
 	
+## Project Overview:
+This repo contains the following scripts:
+1) projectCreate.sh - creates files with boilerplate code for project in a given language. 
+currently supports React, Python, C, C++ and Java.
+2) mdCreate.sh - creates a new markdown file with boilerplate text, meta data, tables and equations examples.
+3) md2pdf.py - converts a markdown to pdf format using pandoc, and places it in appropriate folder.
+4) opdf.py - opens the pdf version of the given markdown file.
+5) mdDelete.py - deletes the pdf version of the given markdown file.
+
 ## Setup
 To run this project, fork the repository and clone it into your own machine:
 
