@@ -4,15 +4,24 @@ import sys
 import os
 
 
+def print_help():
+    print("Required arguments: 1\n")
+    print("Argument must be of type .md\n")
+    print("Usage:\n")
+    print("     deleteMd file.md\n")
+
+
 def main():
     # if only 0 arguments are given to script
     if len(sys.argv) == 1:
         print("Error: missing required argument.\n")
-        sys.exit()
+        print_help()
+        return
     # if the first argument doesn't end with .md
     elif not sys.argv[1].endswith(".md"):
         print('Error: argument must be a file of type markdown and end with ".md"\n')
-        sys.exit()
+        print_help()
+        return
 
     input_file = open(sys.argv[1], 'r')
     lines = (line.rstrip() for line in input_file)
@@ -23,7 +32,7 @@ def main():
     # if the folders line in meta data is empty
     if folders == "" or folders == None or folders == " ":
         print("Error: no folder specified in meta data.")
-        sys.exit()
+        return
 
     # remove quotes from string
     folder = folders.strip().replace('"', '')
@@ -35,7 +44,7 @@ def main():
 
     for i in range(len(subfolders_list)):
         if i == 0:
-            os.system("rm -rf " + path + "/" + subfolders_list[i])
+            os.system("rm -rf " + path + "/" + subfolders_list[0])
 
 
 if __name__ == "__main__":

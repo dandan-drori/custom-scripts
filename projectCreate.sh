@@ -496,6 +496,10 @@ do
       #  react_native_init 
       #  exit 0
       #  ;;
+      #node )
+      #  node_init
+      #  exit 0
+      #  ;;
       c )
         c_init 
         exit 0

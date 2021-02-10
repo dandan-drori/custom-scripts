@@ -38,13 +38,13 @@ def main():
     # get only the folders path
     folders = folder_line.split(":")[1]
 
-    # if the folders line in meta data is empty
-    if folders == "" or folders == None or folders == " ":
-        print("Error: no folder specified in meta data.")
-        sys.exit()
-
     # remove quotes from folders string
     folder = folders.strip().replace('"', '')
+
+    # if the folders line in meta data is empty
+    if folder == "" or folder == None or folder == " ":
+        print("Error: no folder specified in meta data.")
+        return
 
     # store path of PDFs directory
     path = '/home/dandan/vimwiki/PDFs'
@@ -80,7 +80,8 @@ def main():
     base = sys.argv[1].replace('.md', '')
 
     # create pdf file in the same directory
-    os.system("pandoc " + sys.argv[1] + " -o " + base + ".pdf")
+    os.system("pandoc " + sys.argv[1] + " -o " +
+              base + ".pdf")
 
     # move pdf file to the correct directory
     os.system("mv " + base + ".pdf " + path + "/" + folder + "/")
