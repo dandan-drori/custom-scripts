@@ -12,7 +12,7 @@ function help(){
   echo "Optional : -g Intialise a git repo inside project folder"
   echo "         : -h Show this help message"
   echo "         : -p ProjectName -c ClassName -e ExecutableName"
-  echo "         : -v Show current version"
+  echo "         : -v Verbose - show output"
 }
 
 
@@ -40,8 +40,7 @@ while getopts "l:hgvp:c:e:" flag; do
             exit 0
             ;;
         v) 
-            echo "v0.0.2 (beta)"
-            exit 0
+            is_verbose='true'
             ;;
     esac
 done
@@ -219,7 +218,7 @@ function py_init(){
 
 function c_init(){
   start=`date +%s`
-  echo "Creating project..."
+  [ "$is_verbose" == "true" ] && echo "Creating project..."
   mkdir $project_name || exit
   echo "Created $project_name directory at $PWD/$project_name"
   [[  -z $code_file_name ]] && printf "Enter Code File Name (without .c): " && read code_file_name
@@ -228,7 +227,7 @@ function c_init(){
     echo '#include <stdio.h>' 
     echo "#include \"$header_file_name.h\""
   ) > $project_name/$code_file_name.c
-  echo "Created $code_file_name.c at $PWD/$project_name/$code_file_name"
+  [ "$is_verbose" == "true" ] && echo "Created $code_file_name.c at $PWD/$project_name/$code_file_name"
   (
     echo -n '#ifndef'
     echo -n " $header_file_name" | tr '[:lower:]' '[:upper:]'   
@@ -242,7 +241,7 @@ function c_init(){
     echo -n '#endif'
     echo " //$header_file_name.h" | tr '[:lower:]' '[:upper:]'  
   ) > $project_name/$header_file_name.h
-  echo "Created $header_file_name.h at $PWD/$project_name/$header_file_name"
+  [ "$is_verbose" == "true" ] && echo "Created $header_file_name.h at $PWD/$project_name/$header_file_name"
   (
     echo '#include <stdio.h>' 
     echo "#include \"$header_file_name.h\""
@@ -252,7 +251,7 @@ function c_init(){
     echo '    return 0;' 
     echo '}'  
   ) > $project_name/main.c
-  echo "Created main.c at $PWD/$project_name/main.c"
+  [ "$is_verbose" == "true" ] && echo "Created main.c at $PWD/$project_name/main.c"
   [ "$git_init" == "true"  ] && (
     echo $project_name | tr '[:upper:]' '[:lower:]' 
     echo '*.pdf' 
@@ -261,31 +260,31 @@ function c_init(){
   ) > $project_name/.gitignore
   [ "$git_init" == "true" ] && echo "Created .gitignore at $PWD/$project_name"
   [ "$git_init" == "true" ] && git init $project_name
-  echo "Done."
-  echo -n "Project created " && echo -n "${green}${underline}${bold}SUCCESSFULLY${normal}" && echo " in $PWD"
+  [ "$is_verbose" == "true" ] && echo "Done."
+  [ "$is_verbose" == "true" ] && echo -n "Project created " && echo -n "${green}${underline}${bold}SUCCESSFULLY${normal}" && echo " in $PWD"
   end=`date +%s`
-  echo "Time elapsed - $((end-start)) seconds"
+  [ "$is_verbose" == "true" ] && echo "Time elapsed - $((end-start)) seconds"
 
 }
 
 function react_init(){
   start=`date +%s`
-  echo "Looking for npm..."
+  [ "$is_verbose" == "true" ] && echo "Looking for npm..."
   if ! command -v npm &> /dev/null
   then
     #echo "npm could not be found. Please install it by visiting this url: https://npmjs.org"
     echo "Couldn't find npm. installing...'"
     curl "https://npmjs.org/install.sh" | sh
   fi
-  echo "Looking for creare-react-app"
+  [ "$is_verbose" == "true" ] && echo "Looking for create-react-app"
   if ! command -v create-react-app &> /dev/null
   then
     echo "create-react-app could not be found, installing using npm..."
     npm install -g create-react-app
   fi
-  echo "Creating project..."
-  create-react-app "$project_name"
-  echo "Removing unneccessary files..."
+  [ "$is_verbose" == "true" ] && echo "Creating project..."
+  npx create-react-app "$project_name"
+  [ "$is_verbose" == "true" ] && echo "Removing unneccessary files..."
   rm "$project_name/src/App.css"
   rm "$project_name/src/index.css"
   rm "$project_name/src/App.test.js"
@@ -298,7 +297,7 @@ function react_init(){
   rm "$project_name/public/logo192.png"
   rm "$project_name/public/logo512.png"
   rm "$project_name/public/manifest.json"
-  echo "Creating neccessary files..."
+  [ "$is_verbose" == "true" ] && echo "Creating neccessary files..."
   (
     echo "import React from 'react';"
     echo "import ReactDOM from 'react-dom';"
@@ -462,24 +461,24 @@ function react_init(){
     echo "export default Home"
   ) > $project_name/src/components/Home.js
 
-  echo "Installing dependencies... Please wait..."
-  echo "Installing redux..."
+  [ "$is_verbose" == "true" ] && echo "Installing dependencies... Please wait..."
+  [ "$is_verbose" == "true" ] && echo "Installing redux..."
   npm install --prefix $PWD/$project_name redux
-  echo "Installing react-redux..."
+  [ "$is_verbose" == "true" ] && echo "Installing react-redux..."
   npm install --prefix $PWD/$project_name react-redux
-  echo "Installing styled-components..."
+  [ "$is_verbose" == "true" ] && echo "Installing styled-components..."
   npm install --prefix $PWD/$project_name styled-components
-  echo "Installing react-router-dom..."
+  [ "$is_verbose" == "true" ] && echo "Installing react-router-dom..."
   npm install --prefix $PWD/$project_name react-router-dom 
-  echo "Done."
-  echo -n "Project created " && echo -n "${green}${underline}${bold}SUCCESSFULLY${normal}" && echo " in $PWD"
+  [ "$is_verbose" == "true" ] && echo "Done."
+  [ "$is_verbose" == "true" ] && echo -n "Project created " && echo -n "${green}${underline}${bold}SUCCESSFULLY${normal}" && echo " in $PWD"
   end=`date +%s`
-  echo "Time elapsed - $((end-start)) seconds"
-  echo "We suggest that you start with:"
-  echo ""
-  echo "  ${blue}cd${normal} $project_name"
-  echo "  ${blue}npm start${normal}"
-  echo ""
+  [ "$is_verbose" == "true" ] && echo "Time elapsed - $((end-start)) seconds"
+  [ "$is_verbose" == "true" ] && echo "We suggest that you start with:"
+  [ "$is_verbose" == "true" ] && echo ""
+  [ "$is_verbose" == "true" ] && echo "  ${blue}cd${normal} $project_name"
+  [ "$is_verbose" == "true" ] && echo "  ${blue}npm start${normal}"
+  [ "$is_verbose" == "true" ] && echo ""
 }
 
 [[  -z $project_name ]] && printf "Enter project Name: " && read project_name
@@ -517,7 +516,7 @@ do
         exit 0
         ;;
       * )
-        echo "${red}${underline}${bold}ERROR:${normal} invalid language name; Please select a number between 1 and 5:"
+        echo "${red}${underline}${bold}Error:${normal} invalid language picked; Please select a number between 1 and 5:"
     esac
 done
 

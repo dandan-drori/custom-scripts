@@ -5,21 +5,18 @@ import os
 
 
 def print_help():
-    print("Required arguments: 1\n")
-    print("Argument must be of type .md\n")
-    print("Usage:\n")
-    print("     md2pdf file.md\n")
+    print("Argument must be of type .md\nUsage:\n\tmd2pdf file.md\n")
 
 
 def main():
     # if only 0 arguments are given to script
     if len(sys.argv) == 1:
-        print("Error: missing required argument.\n")
+        print("Error: missing required argument.")
         print_help()
         sys.exit()
     # if the first argument doesn't end with .md
     elif not sys.argv[1].endswith(".md"):
-        print('Error: argument must be a file of type markdown and end with ".md"\n')
+        print('Error: argument must be a file of type markdown and end with ".md"')
         print_help()
         sys.exit()
 
