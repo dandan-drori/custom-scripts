@@ -9,18 +9,18 @@ def print_help():
 
 
 def main():
-    # if only 0 arguments are given to script
+    # if no arguments are given to script
     if len(sys.argv) == 1:
         print("Error: missing required argument.")
         print_help()
         sys.exit()
     # if the first argument doesn't end with .md
     elif not sys.argv[1].endswith(".md"):
-        print('Error: argument must be a file of type markdown and end with ".md"')
+        print('Error: argument must be a markdown file and end with ".md"')
         print_help()
         sys.exit()
 
-    # open .md file
+    # open .md file given as argument to the script
     input_file = open(sys.argv[1], 'r')
 
     # strip trailing spaces and line breaks from each line
@@ -29,7 +29,7 @@ def main():
     # skip empty lines in lines
     lines = [line for line in input_file if line]
 
-    # get the line with the folders from file
+    # get the line with the folders from markdown file
     folder_line = lines[4].rstrip()
 
     # get only the folders path
@@ -38,7 +38,7 @@ def main():
     # remove quotes from folders string
     folder = folders.strip().replace('"', '')
 
-    # if the folders line in meta data is empty
+    # if the folders line in the meta data is empty
     if folder == "" or folder == None or folder == " ":
         print("Error: no folder specified in meta data.")
         return

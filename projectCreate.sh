@@ -224,6 +224,13 @@ function c_init(){
   [[  -z $code_file_name ]] && printf "Enter Code File Name (without .c): " && read code_file_name
   [[  -z $header_file_name ]] && printf "Enter Header File Name (without .h): " && read header_file_name
   (
+    echo '/***************'
+    echo 'Dandan Drori'
+    echo '<ID>'
+    echo '01'
+    echo '<Assignment name and number>'
+    echo '***************/'
+    echo ''
     echo '#include <stdio.h>' 
     echo "#include \"$header_file_name.h\""
   ) > $project_name/$code_file_name.c
