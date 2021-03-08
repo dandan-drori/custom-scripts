@@ -1,9 +1,9 @@
 #!/bin/bash
 
-noteFilename="/home/dandan/.notes/src/note-$(date +%Y-%m-%d).md"
+noteFilename="/home/dandan/.notes/src/note-$(date +%d-%m-%Y).md"
 
 if [ ! -f $noteFilename ]; then
-  echo "# Note for $(date +%Y-%m-%d)" > $noteFilename
+  echo "# Note for $(date +%d-%m-%Y)" > $noteFilename
 fi
 
 nvim -c "norm Go" \

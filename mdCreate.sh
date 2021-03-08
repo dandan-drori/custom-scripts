@@ -3,10 +3,11 @@
 [[  -z $md_file_name ]] && printf "Enter markdown file name (without .md): " && read md_file_name
 (
   echo "---"
-  echo "title: ${md_file_name}"
+  echo "title: ${md_file_name}" | sed 's/-/ - /g' | sed 's/_/ /g'
   echo 'author: "Dandan Drori"'
   echo 'tags: ""'
   echo 'folder: ""'
+  echo "date: $(date +%d-%m-%Y)"
   echo "numberSections: true"
   echo "autoEqnLabels: true"
   echo "fontfamily: dejavu"
@@ -28,7 +29,7 @@
   echo "  }"
   echo "---"
   echo ""
-  echo "# ${md_file_name}"
+  echo "# ${md_file_name}" | sed 's/-/ - /g' | sed 's/_/ /g'
   echo ""
   echo "This is a template."
   echo ""
