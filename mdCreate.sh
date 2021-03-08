@@ -9,6 +9,9 @@
   echo 'folder: ""'
   echo "numberSections: true"
   echo "autoEqnLabels: true"
+  echo "fontfamily: dejavu"
+  echo "documentclass: extarticle"
+  echo "fontsize: 14pt"
   echo "geometry:"
   echo "- top=30mm"
   echo "- left=20mm"
