@@ -1,7 +1,7 @@
 #!/bin/bash
 
 normal=`echo -en "\e[0m"`
-green=`echo -en "\e[32m"` 
+green=`echo -en "\e[32m"`
 red=`echo -en "\e[31m"`
 blue=`echo -en "\e[36m"`
 underline=`echo -en "\e[4m"`
@@ -39,11 +39,52 @@ while getopts "l:hgvp:c:e:" flag; do
             help
             exit 0
             ;;
-        v) 
+        v)
             is_verbose='true'
             ;;
     esac
 done
+
+function java_init(){
+  projectNumbers=$(ls "/home/dandan/CS/Y1/S2/" | grep Ex | sed 's/Ex//g')
+  base=0
+  for num in $projectNumbers; do
+    if [ "$num" -ge "$base" ]; then
+      base=$num
+    fi
+  done
+  base=$(( $base+1 ))
+  project_dir="/home/dandan/CS/Y1/S2/Ex${base}"
+  mkdir -p $project_dir || exit
+  mkdir -p ${project_dir}/src
+  (
+    echo "/**"
+    echo " * <h1>Main</h1>"
+    echo " *"
+    echo " * <p>"
+    echo " * Class description"
+    echo " * </p>"
+    echo " */"
+    echo "public class Main {"
+    echo ""
+    echo "  private static int classConst = 0;"
+    echo ""
+    echo "  /**"
+    echo "   * Method Name: main"
+    echo "   * Input: args - array of strings"
+    echo "   * Output:"
+    echo "   * Function Operation:"
+    echo "   */"
+    echo "  public static void main(String[] args) {"
+    echo "    final int methodConst = 0;"
+    echo "  }"
+    echo "}"
+  ) > ${project_dir}/src/Main.java
+
+  cp /home/dandan/CS/Y1/S2/Ex1/biuoop.xml $project_dir
+  cp /home/dandan/CS/Y1/S2/Ex1/checkstyle-5.7-all.jar $project_dir
+  cp /home/dandan/CS/Y1/S2/Ex1/ass1/build.xml $project_dir
+}
 
 function gradle_init(){
 
@@ -180,9 +221,9 @@ function py_init(){
     echo 'import sys'
     echo ''
     echo '# global constant variables'
-    echo '' 
-    echo '' 
-    echo '# helper functions' 
+    echo ''
+    echo ''
+    echo '# helper functions'
     echo ''
     echo ''
     echo '# main functions'
@@ -190,26 +231,26 @@ function py_init(){
     echo ''
     echo 'def main():'
     echo '  pass'
-    echo '' 
+    echo ''
     echo 'if __name__ == "__main__":'
     echo '  main()'
-    echo '' 
+    echo ''
   ) > $project_name/$main_py_file_name.py
   (
-    echo '{' 
+    echo '{'
     echo '  "configurations": {'
     echo '    "Python": {'
     echo '      "adapter": "debugpy",'
-    echo '      "configuration": {'  
+    echo '      "configuration": {'
     echo '        "request": "launch",'
     echo "        \"program\": \"\${workspaceRoot}/${main_py_file_name}.py\","
     echo '        "cwd": "${workspaceRoot}",'
-    echo '        "externalConsole": true,' 
-    echo '        "stopOnEntry": true' 
-    echo '      }'  
-    echo '    }' 
-    echo '  }' 
-    echo '}' 
+    echo '        "externalConsole": true,'
+    echo '        "stopOnEntry": true'
+    echo '      }'
+    echo '    }'
+    echo '  }'
+    echo '}'
   ) > $project_name/.vimspector.json
   [ "$git_init" == "true" ] && touch $project_name/.gitignore
   [ "$git_init" == "true" ] && git init $project_name
@@ -231,39 +272,39 @@ function c_init(){
     echo '<Assignment name and number>'
     echo '***************/'
     echo ''
-    echo '#include <stdio.h>' 
+    echo '#include <stdio.h>'
     echo "#include \"$header_file_name.h\""
   ) > $project_name/$code_file_name.c
   [ "$is_verbose" == "true" ] && echo "Created $code_file_name.c at $PWD/$project_name/$code_file_name"
   (
     echo -n '#ifndef'
-    echo -n " $header_file_name" | tr '[:lower:]' '[:upper:]'   
-    echo "_h" | tr '[:lower:]' '[:upper:]'  
+    echo -n " $header_file_name" | tr '[:lower:]' '[:upper:]'
+    echo "_h" | tr '[:lower:]' '[:upper:]'
     echo -n '#define'
-    echo -n " $header_file_name" | tr '[:lower:]' '[:upper:]'  
-    echo "_h" | tr '[:lower:]' '[:upper:]' 
-    echo '' 
+    echo -n " $header_file_name" | tr '[:lower:]' '[:upper:]'
+    echo "_h" | tr '[:lower:]' '[:upper:]'
     echo ''
-    echo '' 
+    echo ''
+    echo ''
     echo -n '#endif'
-    echo " //$header_file_name.h" | tr '[:lower:]' '[:upper:]'  
+    echo " //$header_file_name.h" | tr '[:lower:]' '[:upper:]'
   ) > $project_name/$header_file_name.h
   [ "$is_verbose" == "true" ] && echo "Created $header_file_name.h at $PWD/$project_name/$header_file_name"
   (
-    echo '#include <stdio.h>' 
+    echo '#include <stdio.h>'
     echo "#include \"$header_file_name.h\""
-    echo '' 
-    echo 'int main () {' 
-    echo '    ' 
-    echo '    return 0;' 
-    echo '}'  
+    echo ''
+    echo 'int main () {'
+    echo '    '
+    echo '    return 0;'
+    echo '}'
   ) > $project_name/main.c
   [ "$is_verbose" == "true" ] && echo "Created main.c at $PWD/$project_name/main.c"
   [ "$git_init" == "true"  ] && (
-    echo $project_name | tr '[:upper:]' '[:lower:]' 
-    echo '*.pdf' 
-    echo '*.pptx' 
-    echo '*.vscode' 
+    echo $project_name | tr '[:upper:]' '[:lower:]'
+    echo '*.pdf'
+    echo '*.pptx'
+    echo '*.vscode'
   ) > $project_name/.gitignore
   [ "$git_init" == "true" ] && echo "Created .gitignore at $PWD/$project_name"
   [ "$git_init" == "true" ] && git init $project_name
@@ -410,9 +451,9 @@ function react_init(){
     echo "  )"
     echo "}"
     echo ""
-    echo 'const Wrapper = styled.div`' 
-    echo "  overflow-x: hidden;" 
-    echo '`' 
+    echo 'const Wrapper = styled.div`'
+    echo "  overflow-x: hidden;"
+    echo '`'
     echo ""
     echo 'const Container = styled.div`'
     echo "  width: 100vw;"
@@ -476,7 +517,7 @@ function react_init(){
   [ "$is_verbose" == "true" ] && echo "Installing styled-components..."
   npm install --prefix $PWD/$project_name styled-components
   [ "$is_verbose" == "true" ] && echo "Installing react-router-dom..."
-  npm install --prefix $PWD/$project_name react-router-dom 
+  npm install --prefix $PWD/$project_name react-router-dom
   [ "$is_verbose" == "true" ] && echo "Done."
   [ "$is_verbose" == "true" ] && echo -n "Project created " && echo -n "${green}${underline}${bold}SUCCESSFULLY${normal}" && echo " in $PWD"
   end=`date +%s`
@@ -492,14 +533,14 @@ function react_init(){
 
 echo "Please select a language:"
 select lang in c cpp java python react
-do 
+do
     case $lang in
       react )
-        react_init 
+        react_init
         exit 0
         ;;
       #react-native )
-      #  react_native_init 
+      #  react_native_init
       #  exit 0
       #  ;;
       #node )
@@ -507,25 +548,26 @@ do
       #  exit 0
       #  ;;
       c )
-        c_init 
+        c_init
         exit 0
         ;;
       python )
-        py_init 
+        py_init
         exit 0
         ;;
       cpp )
-        cpp_init 
+        cpp_init
         exit 0
         ;;
       java )
-        gradle_init 
+        java_init
         exit 0
         ;;
+      # gradle )
+      #   gradle_init
+      #   exit 0
+      #   ;;
       * )
         echo "${red}${underline}${bold}Error:${normal} invalid language picked; Please select a number between 1 and 5:"
     esac
 done
-
-
-

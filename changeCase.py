@@ -25,6 +25,8 @@ def convert_to_camel_case(words):
 
 def main():
     word = sys.argv[1]
+    if word == "":
+        return
     words = word.split('_')
     if words[0] == word and words[0].upper() == word or words[0] != word:
         print(convert_to_camel_case(words))

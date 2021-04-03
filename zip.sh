@@ -9,4 +9,7 @@ ass_num=`echo $PWD | sed 's/.*Ex//g'`
 # save the files and folders in assN.zip where N is the number of
 # the assignment. Include the build.xml file and the src folder -
 # containing the *.java files.
-zip -r ass${ass_num}.zip src build.xml
+mkdir ass${ass_num}
+mv src ass${ass_num}
+mv build.xml ass${ass_num}
+zip -r ass${ass_num}.zip ass${ass_num}
